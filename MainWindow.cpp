@@ -6,6 +6,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {   
     ui->setupUi(this);
+
+    connect(ui->fAnsBtn, SIGNAL (released()), this, SLOT (handleFButton()));
+    connect(ui->sAnsBtn, SIGNAL (released()), this, SLOT (handleSButton()));
+    connect(ui->tAnsBtn, SIGNAL (released()), this, SLOT (handleTButton()));
+    connect(ui->foAnsBtn, SIGNAL (released()), this, SLOT (handleFoButton()));
+
+    m_pButtons = {ui->fAnsBtn, ui->sAnsBtn, ui->tAnsBtn, ui->foAnsBtn};
+    generate();
 }
 
 MainWindow::~MainWindow()
@@ -13,43 +21,55 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-/*
-bool ImageViewer::loadFile(const QString &fileName)
+void MainWindow::handleButton(size_t index)
 {
-    QImageReader reader(fileName);
-    reader.setAutoTransform(true);
-    const QImage newImage = reader.read();
-    if (newImage.isNull()) {
-        QMessageBox::information(this, QGuiApplication::applicationDisplayName(),
-                                 tr("Cannot load %1: %2")
-                                 .arg(QDir::toNativeSeparators(fileName), reader.errorString()));
-        return false;
+     if (index == m_index)
+     {
+        int enemyHp = ui->enemyHP->value() - 10;
+
+        if (enemyHp > 0)
+            ui->enemyHP->setValue(ui->enemyHP->value() - 10);
+        else
+        {
+            ui->enemyHP->setValue(100);
+            ui->heroEXP->setValue(ui->heroEXP->value() + 10);
+        }
+     }
+    else
+        ui->heroHP->setValue(ui->heroHP->value() - 10);
+
+    generate();
+}
+
+void MainWindow::generate()
+{
+    m_index = rand() % 4;
+
+    for (size_t i = 0; i < 4; ++i)
+    {
+        if (i == m_index)
+            m_pButtons[i]->setText("True");
+        else
+            m_pButtons[i]->setText("False");
     }
-//! [2]
-
-    setImage(newImage);
-
-    setWindowFilePath(fileName);
-
-    const QString message = tr("Opened \"%1\", %2x%3, Depth: %4")
-        .arg(QDir::toNativeSeparators(fileName)).arg(image.width()).arg(image.height()).arg(image.depth());
-    statusBar()->showMessage(message);
-    return true;
 }
 
-void ImageViewer::setImage(const QImage &newImage)
+void MainWindow::handleFButton()
 {
-    image = newImage;
-    imageLabel->setPixmap(QPixmap::fromImage(image));
-//! [4]
-    scaleFactor = 1.0;
-
-    scrollArea->setVisible(true);
-    printAct->setEnabled(true);
-    fitToWindowAct->setEnabled(true);
-    updateActions();
-
-    if (!fitToWindowAct->isChecked())
-        imageLabel->adjustSize();
+    handleButton(0);
 }
-*/
+
+void MainWindow::handleSButton()
+{
+    handleButton(1);
+}
+
+void MainWindow::handleTButton()
+{
+    handleButton(2);
+}
+
+void MainWindow::handleFoButton()
+{
+    handleButton(3);
+}

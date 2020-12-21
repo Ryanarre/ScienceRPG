@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QPushButton>
 
 namespace Ui {
 class MainWindow;
@@ -16,7 +17,21 @@ public:
     ~MainWindow();
 
 private:
+    void handleButton(size_t index);
+
+    void generate();
+
+private slots:
+    void handleFButton();
+    void handleSButton();
+    void handleTButton();
+    void handleFoButton();
+
+private:
     Ui::MainWindow *ui;
+
+    size_t m_index;
+    std::vector<QPushButton*> m_pButtons;
 };
 
 #endif // MAINWINDOW_H
