@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QPushButton>
 
+#include "DatabaseManager.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -32,6 +34,7 @@ private:
 
     size_t m_index;
     std::vector<QPushButton*> m_pButtons;
+    DatabaseManager m_databaseManager;
 };
 
 #endif // MAINWINDOW_H
