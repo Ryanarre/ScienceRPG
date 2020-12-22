@@ -3,8 +3,7 @@
 #include <QtSql>
 
 #include <algorithm>
-
-#include <iostream>
+#include <ctime>
 
 DatabaseManager::DatabaseManager()
     : m_isValid(false)
@@ -27,6 +26,7 @@ DatabaseManager::DatabaseManager()
 
 void DatabaseManager::shuffle()
 {
+    srand(static_cast<unsigned int>(time(nullptr)));
     m_usedIncorrect.clear();
 
     if (!m_hiragana.empty())
