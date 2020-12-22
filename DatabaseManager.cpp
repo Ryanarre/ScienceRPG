@@ -10,7 +10,7 @@ DatabaseManager::DatabaseManager()
     : m_isValid(false)
 {
     QSqlDatabase sdb = QSqlDatabase::addDatabase("QSQLITE");
-    sdb.setDatabaseName("nippon.db");
+    sdb.setDatabaseName("resources/nippon.db");
 
     if (!sdb.open())
         return;

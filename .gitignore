@@ -1,1 +1,9 @@
 *.user
+.qmake.stash
+Makefile
+Makefile.Debug
+Makefile.Release
+ui_MainWindow.h
+
+debug/
+release/

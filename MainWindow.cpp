@@ -1,5 +1,6 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
+#include "ImageManager.h"
 
 #include <QMessageBox>
 
@@ -25,6 +26,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_pButtons = {ui->fAnsBtn, ui->sAnsBtn, ui->tAnsBtn, ui->foAnsBtn};
     generate();
+
+    ImageManager imageManager;
+    imageManager.setImage("resources/knight.png", ui->heroImg);
+    imageManager.setImage("resources/goblin.png", ui->enemyImg);
 }
 
 MainWindow::~MainWindow()
